@@ -356,13 +356,7 @@ python Kami.py "C:\Program Files (x86)\Google\Chrome\chromedriver.exe"
 
    <img src="display/访问网站.png" alt="访问网站" style="zoom:67%;" />
 
-### 作者
 
-| 学号 | 1851049 |
-| ---- | ------- |
-| 姓名 | 陈中悦  |
-
-​	
 
 
 
