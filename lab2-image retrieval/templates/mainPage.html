@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>我的网站</title>
+
+    <!-- Bootstrap css -->
+	  <link rel="stylesheet" href="/lib/css/bootstrap.css">
+    <!--自定义css-->
+    <link rel="stylesheet" href="/lib/css/mycss.css">
+
+    
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="/lib/js/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="/lib/js/bootstrap.min.js"></script>
+
+    <!--检索系统js文件-->
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.0.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/knockout/knockout-2.2.1.js"></script>
+
+    <!--自定义js-->
+    <!--搜索js-->
+    <script src="/lib/js/search.js"></script>
+    <script src="/lib/js/filter.js"></script>
+    <script>
+      function show(evt){
+        var reader = new FileReader(); // 实例化一个FileReader对象，用于读取文件
+        var file = document.getElementById('file').files[0]; // 获取要显示图片的标签
+        reader.readAsDataURL(file);
+        //读取File对象的数据
+        reader.onload = function (reader) {
+            document.getElementById("uploadedImages").src=reader.target.result;
+            document.getElementById("uploadedImages").style.display="block";
+        }
+      }
+    </script>
+
+    <script>
+      function fav(obj){
+        var curId=obj.id
+        if(curId=="unlike"){
+          obj.src='/lib/img/faved.png'
+         
+          obj.id="like"
+        }
+        else{
+          obj.src='/lib/img/unfav.png'
+          
+          obj.id="unlike"
+        }
+
+      }
+      
+    </script>
+
+
+  </head>
+  <body>
+    <!--功能框-->  
+    <div class="mainPage" style="z-index:13;position: absolute;">
+
+      <form method=post enctype=multipart/form-data>
+      <div class="row">
+        <!--upload button-->
+        <div class="dropdown col-md-4">
+          <button class="cameraBtn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <span class="glyphicon glyphicon-camera" aria-hidden="true"></span>
+          </button>
+
+          <!--upload files-->
+          <div class="dropdown-menu" style="margin-left: 50px;" aria-labelledby="dropdownMenu1" >         
+              <input style="margin-bottom:20px;margin-top: 20px;margin-left:40px;" type="file"id="file" name="file" onchange="show()" required />            
+          </div>
+        </div>
+
+        <!--search button-->
+        <button class="col-md-4 col-md-offset-4 searchBtn btn-default" style="z-index:13;position: absolute;" onclick="search()">
+          <span type=submit class="glyphicon glyphicon-search" aria-hidden="true"></span>
+        </button>
+
+      </div>
+    </form>
+
+    </div>
+
+    
+
+    <!--幻灯片放映框-->
+    <div id="mycarousel" class="carousel slide" data-ride="carousel">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <li data-target="#mycarousel" data-slide-to="0" data-interval="1500" class="active"></li>
+        <li data-target="#mycarousel" data-slide-to="1" data-interval="1500"></li>
+        <li data-target="#mycarousel" data-slide-to="2" data-interval="1500"></li>
+      </ol>
+    
+      <!-- Wrapper for slides -->
+      <div class="carousel-inner" role="listbox">
+        <div class="item active">
+          <img src="/lib/img/shitu_b04.jpg" alt="...">
+          <div class="carousel-caption">
+            <h1>山野识图</h1>
+          </div>
+        </div>
+        <div class="item">
+          <img src="/lib/img/shitu_b01.jpg" alt="...">
+          <div class="carousel-caption">
+            <h1>山野识图</h1>
+          </div>
+        </div>
+        <div class="item">
+          <img src="/lib/img/shitu_b02.jpg" alt="...">
+          <div class="carousel-caption">
+            <h1>山野识图</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--上传图片-->
+    <div id="uploaded" class="row" style="margin-top:20px;margin-left:10%; margin-right:10%;">
+      <img class="col-md-4" id="uploadedImages" src="" alt="上传图片" style="max-height:100%; max-width: auto;min-height: 100%;min-width:auto; display: none;">
+      <h3 class="col-md-4" id="review" style="text-align:center;display: none;">本次共检索出9张相似图片</h3>
+    </div>
+
+    <!--加载gif-->
+    <center>
+      <img id="load" src="/images/ajax-loader.gif" style="height:100px;weight:100px;display:none;" >
+    </center>
+
+
+    <!--结果标签按钮-->
+    <div id="labels" class="" style="display: none;">
+      <!--clear按钮-->
+      <a href="">
+        <button class="btn-default"style="left:11%;width:90px;height: 40px;border-radius: 5px;margin-top: 10px;position:absolute;">
+          <span class="glyphicon glyphicon-refresh" aria-hidden="true" >&nbsp;CLEAR</span>   
+        </button>
+      </a>
+
+      <!--换一换按钮-->
+      <!-- <button class="btn-default"style="left:72%;width:90px;height: 40px;border-radius: 5px;margin-top: 10px;position:absolute;">
+        <span class="glyphicon glyphicon-refresh" aria-hidden="true" >&nbsp;换一换</span>   
+      </button> -->
+      
+      <!--下拉筛选-->
+      <div class="dropdown" style="left:80%;margin-top:0px;display: inline-block;">
+        <button class=" btn-default dropdown-toggle" style="width:90px;height: 40px;border-radius: 5px;margin-top: 10px;"type="button" id="imgTagsBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          <span class="glyphicon glyphicon-menu-down" aria-hidden="true" >&nbsp;筛选</span>
+
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+          <li><a id="tag"  style="display: none;" onclick="filter(this)"></a></li>
+          <li><a id="tag0"  style="display: none;" onclick="filter(this)"></a></li>
+          <li><a id="tag1"  style="display: none;" onclick="filter(this)"></a></li>
+          <li><a id="tag2"  style="display: none;" onclick="filter(this)"></a></li>
+          <li><a id="tag3"  style="display: none;" onclick="filter(this)"></a></li>
+          <li><a id="tag4"  style="display: none;" onclick="filter(this)"></a></li>
+          <li><a id="tag5"  style="display: none;" onclick="filter(this)"></a></li>
+          <li><a id="tag6"  style="display: none;" onclick="filter(this)"></a></li>
+          <li><a id="tag7"  style="display: none;" onclick="filter(this)"></a></li>
+          <li><a id="tag8"  style="display: none;" onclick="filter(this)"></a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!--结果显示-->
+    <div class="row" style="margin-bottom:20px;margin-left:10%; margin-right:10%;">
+      <div  id="img-div0" class=" col-md-4 " style="size:50%;margin-top:20px;display:none;">
+        <img id="img0" name=""  src="" style="max-height: 100%;max-width: auto;min-height: 100%;min-width: auto;position: absolute;">
+        <img id="unlike" class="favBtn" src= '/lib/img/unfav.png' onclick="fav(this)"></img>
+        <div id="img_tag0" style="width:70px;height:30px;background-color:white;text-align: center;right:20%;top:80%;position: absolute;">
+        </div>
+      </div>
+
+      <div  id="img-div1" class=" col-md-4 " style="size:50%;margin-top:20px;display:none;">
+        <img id="img1" name=""  src="" style="max-height: 100%;max-width: auto;min-height: 100%;min-width: auto;position: absolute;">
+        <img id="unlike" class="favBtn" src= '/lib/img/unfav.png' onclick="fav(this)"></img>
+        <div id="img_tag1" style="width:70px;height:30px;background-color:white;text-align: center;right:20%;top:80%;position: absolute;">
+        </div>
+      </div>
+
+      <div  id="img-div2" class=" col-md-4 " style="size:50%;margin-top:20px;display:none;">
+        <img id="img2" name=""  src="" style="max-height: 100%;max-width: auto;min-height: 100%;min-width: auto;position: absolute;">
+        <img id="unlike" class="favBtn" src= '/lib/img/unfav.png' onclick="fav(this)"></img>
+        <div id="img_tag2" style="width:70px;height:30px;background-color:white;text-align: center;right:20%;top:80%;position: absolute;">
+        </div>
+      </div>
+
+      <div  id="img-div3" class=" col-md-4 " style="size: 50%;margin-top:20px;display:none;">
+        <img id="img3" name=""  src="" style="max-height: 100%;max-width: auto;min-height: 100%;min-width: auto;position: absolute;">
+        <img id="unlike" class="favBtn" src= '/lib/img/unfav.png' onclick="fav(this)"></img>
+        <div id="img_tag3" style="width:70px;height:30px;background-color:white;text-align: center;right:20%;top:80%;position: absolute;">
+        </div>
+      </div>
+      <div  id="img-div4" class=" col-md-4 " style="size: 50%;margin-top:20px;display:none;">
+        <img id="img4" name=""  src="" style="max-height: 100%;max-width: auto;min-height: 100%;min-width: auto;position: absolute;">
+        <img id="unlike" class="favBtn" src= '/lib/img/unfav.png' onclick="fav(this)"></img>
+        <div id="img_tag4" style="width:70px;height:30px;background-color:white;text-align: center;right:20%;top:80%;position: absolute;">
+        </div>
+      </div>
+      <div  id="img-div5" class=" col-md-4 " style="size: 50%;margin-top:20px;display:none;">
+        <img id="img5" name=""  src="" style="max-height: 100%;max-width: auto;min-height: 100%;min-width: auto;position: absolute;">
+        <img id="unlike" class="favBtn" src= '/lib/img/unfav.png' onclick="fav(this)"></img>
+        <div id="img_tag5" style="width:70px;height:30px;background-color:white;text-align: center;right:20%;top:80%;position: absolute;">
+        </div>
+      </div>
+
+      <div  id="img-div6" class=" col-md-4 " style="size: 50%;margin-top:20px;display:none;">
+        <img id="img6" name=""  src="" style="max-height: 100%;max-width: auto;min-height: 100%;min-width: auto;position: absolute;">
+        <img id="unlike" class="favBtn" src= '/lib/img/unfav.png' onclick="fav(this)"></img>
+        <div id="img_tag6" style="width:70px;height:30px;background-color:white;text-align: center;right:20%;top:80%;position: absolute;">
+        </div>
+      </div>
+      <div  id="img-div7" class=" col-md-4 " style="size: 50%;margin-top:20px;display:none;">
+        <img id="img7" name=""  src="" style="max-height: 100%;max-width: auto;min-height: 100%;min-width: auto;position: absolute;">
+        <img id="unlike" class="favBtn" src= '/lib/img/unfav.png' onclick="fav(this)"></img>
+        <div id="img_tag7" style="width:70px;height:30px;background-color:white;text-align: center;right:20%;top:80%;position: absolute;">
+        </div>
+      </div>
+      <div  id="img-div8" class=" col-md-4 " style="size: 50%;margin-top:20px;display:none;">
+        <img id="img8" name=""  src="" style="max-height: 100%;max-width: auto;min-height: 100%;min-width: auto;position: absolute;">
+        <img id="unlike" class="favBtn" src= '/lib/img/unfav.png' onclick="fav(this)"></img>
+        <div id="img_tag8" style="width:70px;height:30px;background-color:white;text-align: center;right:20%;top:80%;position: absolute;">
+        </div>
+      </div>
+      
+    </div>
+
+    <!-- <script>
+      $(function () {
+        var w = $(".result").width();
+        var h = $(".result").height();
+        var w2 = w + 20;
+        var h2 = h + 20;
+
+        $(".result").hover(function () {
+            $(this).stop().animate({ height: h2, width: w2, left: "-10px", top: "-10px" }, 400);
+        }, function () {
+            $(this).stop().animate({ height: h, width: w, left: "0px", top: "0px" }, 400);
+        });
+    });
+    </script> -->
+
+
+  </body>
+</html>

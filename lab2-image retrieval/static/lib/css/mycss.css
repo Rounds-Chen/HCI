@@ -1,0 +1,56 @@
+.mainPage{
+    width:40%;
+    height:40%;
+    
+    background-color:ghostwhite;
+    opacity: 0.8;
+    border-radius: 10px;
+    margin:auto;
+    margin-top:50px;
+
+    left:10%;
+    right:10%;
+    
+}
+
+.cameraBtn{
+    display: inline-block;
+    width: 80px;
+    height: 50px;
+
+    border-radius: 10px;
+
+    
+    margin-top: 80px;
+    margin-left: 100px;
+}
+
+.searchBtn{
+    display: inline-block;
+    width: 80px;
+    height: 50px;
+
+    border-radius: 10px;
+
+    
+    margin-top: 80px;
+    margin-right: 100px;
+}
+
+.imageBtn{
+    text-align: center;
+    border-radius: 5px;
+}
+
+.result{
+
+}
+
+.favBtn{
+    margin-left:59%;
+    margin-top:2%;
+    position: absolute;
+    width:30px;
+    height:30px
+}
+
