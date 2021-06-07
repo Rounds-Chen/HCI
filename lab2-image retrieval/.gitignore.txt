@@ -1,0 +1,10 @@
+database/
+imagenet/
+
+!.gitignore
+
+*.txt
+*.pickle
+
+!README.md
+*.md
