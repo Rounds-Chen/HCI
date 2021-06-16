@@ -153,7 +153,7 @@ def update_pie(category, type):
         content_rating_values.append(0)
     for index,row in dff.iterrows():
         content_rating_values[content_rating_list.index(row[8])]+=1
-    print('content_rating_values',content_rating_values)
+    print('content_rating_values：',content_rating_values)
 
 
     return {
@@ -319,8 +319,6 @@ def update_RI_scatters(category, type, radio):
 def update_RI_scatters(category, type, radio):
     print(category, type, radio)
     dff = df[(df['Category'] == category) & (df['Content Rating'] == radio)&(df['Type']==type)]
-
-
 
     reviews = [0, 0, 0, 0, 0,0]
     ratings = ['0~1', '1~2', '2~3', '3~4', '4~5','5+']
