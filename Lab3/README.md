@@ -67,36 +67,32 @@
 
 ### 总览
 
-![overview](C:\Users\round\Desktop\人机交互\作业\HCI\Lab3\display\overview.png)
-
-
+![overview](display/overview.png)
 
 
 
 ### Content Rating 饼状图
 
-![content-rating_pie_chart](C:\Users\round\Desktop\人机交互\作业\HCI\Lab3\display\content-rating_pie_chart.png)
-
-
+![content-rating_pie_chart](display/content-rating_pie_chart.png)
 
 ### Reviews-Installs 散点图
 
-![reviews-installs](C:\Users\round\Desktop\人机交互\作业\HCI\Lab3\display\reviews-installs.png)
+![reviews-installs](display/reviews-installs.png)
 
 
 
 ### Installs-Size 折线图
 
-![installs-size](C:\Users\round\Desktop\人机交互\作业\HCI\Lab3\display\installs-size.png)
+![installs-size](display/installs-size.png)
 
 
 
 ### Installs-Rating 柱状图
 
-![installs-rating](C:\Users\round\Desktop\人机交互\作业\HCI\Lab3\display\installs-rating.png)
+![installs-rating](display/installs-rating.png)
 
 
 
 ### Reviews-Rating 柱状图
 
-![reviews-rating](C:\Users\round\Desktop\人机交互\作业\HCI\Lab3\display\reviews-rating.png)
+![reviews-rating](display/reviews-rating.png)

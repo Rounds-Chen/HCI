@@ -39,7 +39,7 @@ app.layout=html.Div([
     html.Div([
         dcc.Graph(
             id='content-rating-graph',
-            animate=True),
+            animate=False),
             ],
         style={'width':'50%'}),
 
@@ -155,7 +155,7 @@ def update_pie(category, type):
         content_rating_values[content_rating_list.index(row[8])]+=1
     print('content_rating_values：',content_rating_values)
 
-
+    print('更新饼图！')
     return {
         'data':[go.Pie(
         labels=content_rating_list,
