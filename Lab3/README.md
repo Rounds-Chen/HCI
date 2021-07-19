@@ -1,12 +1,5 @@
 # Lab 3: Data Visualization
 
-* 学号：1851049
-* 姓名：陈中悦
-
-
-
-[TOC]
-
 ## 项目简介
 
 一个简单的基于 `google-play-store-apps`数据集的Dashboard.
