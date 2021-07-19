@@ -1,6 +1,6 @@
 # Lab 3: Data Visualization
 
-* 学号：1851049
+* 学号：
 * 姓名：陈中悦
 
 
